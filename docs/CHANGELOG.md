@@ -327,6 +327,7 @@ Latest changes
     * php 5.5.x
     * pjproject
     * ruby/ruby-fcgi
+    * slang
     * truecrypt
     * wxWidgets
 

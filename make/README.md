@@ -760,9 +760,6 @@
      - [Bekannte Bugs](../docs/make/sispmctl.md#bekannte-bugs)
      - [Weitere Screenshots](../docs/make/sispmctl.md#weitere-screenshots)
 
-  * **<u>slang: S-Lang 2.3.1a (binary only)</u><a id='slang'></a>**<br>
-    S-Lang is a powerful interpreted language that may be embedded
-
   * **<u>Slurm 0.3.3 (binary only)</u><a id='slurm'></a>**<br>
     slurm - yet another network load monitor slurm started as a FreeBSD port of the Linux ppp link monitor called pppstatus by Gabriel Montenegro. features: - "realtime" traffic statistics - three graph modes: combined RX and TX and two split views - can monitor any network device - curses ascii graphics
 
