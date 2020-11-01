@@ -7,21 +7,9 @@ $(PKG)_BINARY:=$($(PKG)_DIR)/src/mc
 $(PKG)_TARGET_BINARY:=$($(PKG)_DEST_DIR)/usr/bin/mc
 $(PKG)_TARGET_CONS_SAVER_BINARY:=$($(PKG)_DEST_DIR)/usr/lib/mc/cons.saver
 
-$(PKG)_DEPENDS_ON += ncurses-terminfo glib2
+$(PKG)_DEPENDS_ON += ncurses ncurses-terminfo glib2
 
 $(PKG)_CONFIGURE_ENV += fu_cv_sys_stat_statfs2_bsize=yes
-
-$(PKG)_REBUILD_SUBOPTS += FREETZ_PACKAGE_MC_WITH_SLANG
-ifeq ($(strip $(FREETZ_PACKAGE_MC_WITH_SLANG)),y)
-$(PKG)_DEPENDS_ON += slang
-$(PKG)_CONFIGURE_OPTIONS += --with-screen=slang
-endif
-
-$(PKG)_REBUILD_SUBOPTS += FREETZ_PACKAGE_MC_WITH_NCURSES
-ifeq ($(strip $(FREETZ_PACKAGE_MC_WITH_NCURSES)),y)
-$(PKG)_DEPENDS_ON += ncurses
-$(PKG)_CONFIGURE_OPTIONS += --with-screen=ncurses
-endif
 
 $(PKG)_CONFIGURE_OPTIONS += --without-libintl-prefix
 ifeq ($(strip $(FREETZ_TARGET_UCLIBC_0_9_28)),y)
@@ -45,6 +33,7 @@ $(PKG)_CONFIGURE_OPTIONS += --disable-mclib
 $(PKG)_CONFIGURE_OPTIONS += --disable-tests
 
 $(PKG)_CONFIGURE_OPTIONS += --with-search-engine=glib
+$(PKG)_CONFIGURE_OPTIONS += --with-screen=ncurses
 
 $(PKG)_CONFIGURE_OPTIONS += --sysconfdir=/usr/share
 
