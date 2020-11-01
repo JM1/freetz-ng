@@ -4,8 +4,13 @@ $(PKG)_SOURCE:=$(pkg)-$($(PKG)_VERSION).tar.gz
 $(PKG)_SOURCE_SHA256:=30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d
 $(PKG)_SITE:=@GNU/$(pkg)
 
+ifeq ($(strip $(FREETZ_LIB_libncursesw)),y)
+$(PKG)_LIBCONFIG_SHORT := ncursesw6-config
+$(PKG)_LIBNAMES_SHORT := ncursesw formw menuw panelw
+else
 $(PKG)_LIBCONFIG_SHORT := ncurses6-config
 $(PKG)_LIBNAMES_SHORT := ncurses form menu panel
+endif
 $(PKG)_LIBNAMES_LONG := $($(PKG)_LIBNAMES_SHORT:%=lib%.so.$($(PKG)_LIB_VERSION))
 $(PKG)_LIBS_BUILD_DIR := $($(PKG)_LIBNAMES_LONG:%=$($(PKG)_DIR)/lib/%)
 $(PKG)_LIBS_STAGING_DIR := $($(PKG)_LIBNAMES_LONG:%=$(TARGET_TOOLCHAIN_STAGING_DIR)/usr/lib/%)
@@ -47,6 +52,13 @@ $(PKG)_CONFIGURE_OPTIONS += --with-normal
 $(PKG)_CONFIGURE_OPTIONS += --with-shared
 $(PKG)_CONFIGURE_OPTIONS += --with-terminfo-dirs="$($(PKG)_TERMINFO_DIR)"
 $(PKG)_CONFIGURE_OPTIONS += --with-default-terminfo-dir="$($(PKG)_TERMINFO_DIR)"
+
+ifeq ($(strip $(FREETZ_LIB_libncursesw)),y)
+$(PKG)_CONFIGURE_OPTIONS += --enable-widec
+$(PKG)_CONFIGURE_OPTIONS += --with-build-cppflags=-D_GNU_SOURCE
+endif
+
+$(PKG)_REBUILD_SUBOPTS += FREETZ_LIB_libncursesw
 
 $(PKG_SOURCE_DOWNLOAD)
 $(PKG_UNPACKED)
