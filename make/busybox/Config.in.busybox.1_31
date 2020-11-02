@@ -4885,7 +4885,7 @@ config FREETZ_BUSYBOX___V131_FEATURE_MOUNT_LABEL
 config FREETZ_BUSYBOX___V131_FEATURE_MOUNT_NFS
 	bool "Support mounting NFS file systems on Linux < 2.6.23"
 	default n
-	depends on FREETZ_BUSYBOX___V131_MOUNT
+	depends on FREETZ_BUSYBOX___V131_MOUNT && !FREETZ_TARGET_UCLIBC_1_0_31
 	select FREETZ_BUSYBOX___V131_FEATURE_SYSLOG
 	help
 	Enable mounting of NFS file systems on Linux kernels prior
@@ -6780,7 +6780,7 @@ config FREETZ_BUSYBOX___V131_FEATURE_INETD_SUPPORT_BUILTIN_CHARGEN
 config FREETZ_BUSYBOX___V131_FEATURE_INETD_RPC
 	bool "Support RPC services"
 	default n  # very rarely used, and needs Sun RPC support in libc
-	depends on FREETZ_BUSYBOX___V131_INETD
+	depends on FREETZ_BUSYBOX___V131_INETD && !FREETZ_TARGET_UCLIBC_1_0_31
 	help
 	Support Sun-RPC based services
 config FREETZ_BUSYBOX___V131_IP

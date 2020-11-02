@@ -342,6 +342,7 @@ config FREETZ_BUSYBOX___V127_FEATURE_SYSLOG
 
 config FREETZ_BUSYBOX___V127_FEATURE_HAVE_RPC
 	bool #No description makes it a hidden option
+	depends on !FREETZ_TARGET_UCLIBC_1_0_31
 	default n
 	#help
 	#  This is automatically selected if any of enabled applets need it.
@@ -6442,7 +6443,7 @@ config FREETZ_BUSYBOX___V127_FEATURE_INETD_SUPPORT_BUILTIN_CHARGEN
 config FREETZ_BUSYBOX___V127_FEATURE_INETD_RPC
 	bool "Support RPC services"
 	default n  # very rarely used, and needs Sun RPC support in libc
-	depends on FREETZ_BUSYBOX___V127_INETD
+	depends on FREETZ_BUSYBOX___V127_INETD && !FREETZ_TARGET_UCLIBC_1_0_31
 	select FREETZ_BUSYBOX___V127_FEATURE_HAVE_RPC
 	help
 	  Support Sun-RPC based services

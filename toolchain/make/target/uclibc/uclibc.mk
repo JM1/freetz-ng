@@ -12,6 +12,7 @@ UCLIBC_MD5_0.9.32.1  = ade6e441242be5cdd735fec97954a54a
 UCLIBC_MD5_0.9.33.2  = a338aaffc56f0f5040e6d9fa8a12eda1
 UCLIBC_SHA256_1.0.14 = 3c63d9f8c8b98b65fa5c4040d1c8ab1b36e99a16e1093810cedad51ac15c9a9e
 UCLIBC_SHA256_1.0.15 = 0f62f35217d9a0b5eb3810dd6de16ab3dd4323f3224c6b95423250ac1e19ee49
+UCLIBC_SHA256_1.0.31 = 2215d7377118434d1697fd575f10d7a6be3f29e460d6b0e1ee9f6f5306288060
 UCLIBC_SOURCE_CHECKSUM=$(or $(UCLIBC_SHA256_$(UCLIBC_VERSION)),$(UCLIBC_MD5_$(UCLIBC_VERSION)))
 
 UCLIBC_KERNEL_HEADERS_DIR:=$(KERNEL_HEADERS_DEVEL_DIR)
@@ -22,7 +23,7 @@ UCLIBC_CONFIG_FILE:=$(UCLIBC_MAKE_DIR)/configs/freetz/config-$(FREETZ_TARGET_ARC
 
 # uClibc >= 0.9.31 supports parallel building
 # TODO 1.0.14: reenable parallel building for 1.0.x
-UCLIBC_MAKE:=$(if $(or $(FREETZ_TARGET_UCLIBC_0_9_28),$(FREETZ_TARGET_UCLIBC_0_9_29),$(FREETZ_TARGET_UCLIBC_1_0_14),$(FREETZ_TARGET_UCLIBC_1_0_15)),$(MAKE1),$(MAKE)) 
+UCLIBC_MAKE:=$(if $(or $(FREETZ_TARGET_UCLIBC_0_9_28),$(FREETZ_TARGET_UCLIBC_0_9_29),$(FREETZ_TARGET_UCLIBC_1_0_14),$(FREETZ_TARGET_UCLIBC_1_0_15),$(FREETZ_TARGET_UCLIBC_1_0_31)),$(MAKE1),$(MAKE)) 
 
 UCLIBC_COMMON_BUILD_FLAGS:=
 
@@ -174,7 +175,10 @@ $(TARGET_TOOLCHAIN_STAGING_DIR)/usr/lib/libc.a: $(UCLIBC_DIR)/lib/libc.a
 		RUNTIME_PREFIX=$(TARGET_TOOLCHAIN_STAGING_DIR)/usr/ \
 		install_runtime install_dev
 	# Copy some files to make mklibs happy
-ifneq ($(strip $(UCLIBC_VERSION)),0.9.28)
+	#
+	# uclibc 1.0.18+ has a single libc and does not build libpthread etc. anymore
+	# Ref.: https://github.com/wbx-github/uclibc-ng/commit/29ff9055c80efe77a7130767a9fcb3ab8c67e8ce
+ifneq ($(strip $(UCLIBC_VERSION)),$(filter $(strip $(UCLIBC_VERSION)),0.9.28 1.0.31))
 	for f in libc_pic.a libdl_pic.a libpthread_pic.a; do \
 		$(RM) $(TARGET_TOOLCHAIN_STAGING_DIR)/lib/$$f; \
 	done; \

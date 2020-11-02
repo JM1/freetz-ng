@@ -1,0 +1,13 @@
+diff --git a/Rules.mak b/Rules.mak
+index 0b2d17880..f6a79314a 100644
+--- a/Rules.mak
++++ b/Rules.mak
+@@ -640,7 +640,7 @@ endif
+ endif
+ 
+ ifeq ($(DODEBUG),y)
+-CFLAGS += -O0 -g3 -DDEBUG
++CFLAGS += -O0 -g$(DEBUG_LEVEL) -DDEBUG
+ else
+ CFLAGS += $(OPTIMIZATION)
+ CFLAGS += $(OPTIMIZATION-$(GCC_MAJOR_VER))
