@@ -1,6 +1,6 @@
-$(call PKG_INIT_BIN, 1.4.11.1)
+$(call PKG_INIT_BIN, 1.4.21)
 $(PKG)_SOURCE:=$(pkg)-$($(PKG)_VERSION).tar.bz2
-$(PKG)_SOURCE_MD5:=7de6e1ae7ed8a2025f184763a6a24b9a
+$(PKG)_SOURCE_MD5:=536d048c8e8eeebcd9757d0863ebb0c0
 $(PKG)_SITE:=http://netfilter.org/projects/$(pkg)/files
 $(PKG)_CONDITIONAL_PATCHES+=$(KERNEL_VERSION_MAJOR)
 
@@ -20,7 +20,7 @@ $(PKG)_LIBS_SUBDIRS += libiptc/.libs/
 endif
 
 ifneq ($(strip $(FREETZ_PACKAGE_IPTABLES_STATIC)),y)
-$(PKG)_LIBNAMES_ALL := libip4tc.so.0.0.0 libxtables.so.6.0.0 libip6tc.so.0.0.0
+$(PKG)_LIBNAMES_ALL := libip4tc.so.0.1.0 libxtables.so.10.0.0 libip6tc.so.0.1.0
 $(PKG)_LIBNAMES := $(filter-out $(if $(FREETZ_TARGET_IPV6_SUPPORT),,libip6tc%), $($(PKG)_LIBNAMES_ALL))
 $(PKG)_LIBS_BUILD_DIR := $(addprefix $($(PKG)_DIR)/,$(join $($(PKG)_LIBS_SUBDIRS),$($(PKG)_LIBNAMES)))
 $(PKG)_LIBS_TARGET_DIR := $(addprefix $($(PKG)_DEST_LIBDIR)/,$($(PKG)_LIBNAMES))
